@@ -16,10 +16,13 @@ The Ping-Status App is built using FastAPI, a modern, fast (high-performance) we
 
 ### **Dependencies**
 
-- dnspython==2.3.0
-- fastapi==0.94.1
-- Jinja2==3.1.2
-- uvicorn==0.21.1
+- dnspython>=2.3.0
+- fastapi>=0.94.1
+- Jinja2>=3.1.2
+- uvicorn>=0.21.1
+- Python >= 3.7
+
+I conducted testing on macOS M2 and Ubuntu 1804 using Python 3.11.2.
 
 ### **Directory Structure**
 
