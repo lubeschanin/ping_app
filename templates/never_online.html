@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Hostnamen, die nie online waren{% endblock %}
+
+{% block content %}
+{% set active_page = 'never_online' %}
+{% include 'navbar.html' %}
+<h1 class="my-4">Hostnamen, die nie online waren</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Hostname</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hostname in hostnames %}
+        <tr>
+            <td>{{ hostname['hostname'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

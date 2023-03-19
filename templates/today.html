@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Hostnamen von heute{% endblock %}
+
+{% block content %}
+{% set active_page = 'today' %}
+{% include 'navbar.html' %}
+<h1 class="my-4">Hostnamen von heute</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>Erstellt am</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hostname in hostnames %}
+        <tr>
+            <td>{{ hostname['hostname'] }}</td>
+            <td>{{ hostname['created_at'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
