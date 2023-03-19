@@ -1,5 +1,3 @@
-# Ping-Status App Documentation
-
 # **Ping-Status App Documentation**
 
 ## **Overview**
