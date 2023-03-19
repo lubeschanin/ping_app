@@ -24,8 +24,8 @@ app.config = {
     "server_ip": "127.0.0.1",
     "server_port": 8000,
     "database": "results.db",
-    "dns_server": "10.0.60.203",
-    "dns_zone": "nardini.rp",
+    "dns_server": "127.0.0.1,
+    "dns_zone": "mydomain.local",
     "semaphore": 499,
     "sleep": 300,
 }
