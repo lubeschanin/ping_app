@@ -51,7 +51,18 @@ def create_table():
         db.execute(
             "CREATE TABLE IF NOT EXISTS results (id INTEGER PRIMARY KEY, IPv4Address TEXT, hostname_id INTEGER, status TEXT, timestamp TEXT, FOREIGN KEY(hostname_id) REFERENCES hostnames(id))"
         )
+        db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_results_status ON results(status)"
+        )
+        db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_results_timestamp ON results(timestamp)"
+        )
+        db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_hostnames_id ON hostnames(id)"
+        )
         db.commit()
+
+
 
 
 def insert_result(target, hostname, status):
