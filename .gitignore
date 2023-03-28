@@ -131,3 +131,13 @@ dmypy.json
 .pyre/
 *.pyc
 .DS_Store
+.idea/inspectionProfiles/profiles_settings.xml
+.gitignore
+.gitignore
+.gitignore
+.gitignore
+.idea/misc.xml
+.idea/vcs.xml
+.idea/ping_app.iml
+.gitignore
+.idea/modules.xml

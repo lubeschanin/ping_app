@@ -117,11 +117,12 @@ def query_never_online_hostnames():
     hostnames = []
     with get_db() as db:
         cursor = db.execute(
-            "SELECT h.hostname FROM hostnames h LEFT JOIN results r ON h.id = r.hostname_id WHERE r.status != 'online' GROUP BY h.hostname"
+            "SELECT h.hostname FROM hostnames h LEFT JOIN results r ON h.id = r.hostname_id WHERE h.id NOT IN (SELECT hostname_id FROM results WHERE status = 'online') GROUP BY h.hostname"
         )
         for row in cursor.fetchall():
             hostnames.append({"hostname": row["hostname"]})
     return hostnames
+
 
 
 async def async_ping(semaphore, target):
