@@ -16,7 +16,7 @@ app = FastAPI(
               hostnames created today, and the ping status of all hostnames in the DNS zone.
               """,
     contact={"Email": "vit@lij.de"},
-    version="0.1.4",
+    version="0.1.5",
     license_info={"name": "GNU General Public License version 2 (GPLv2) "},
 )
 
@@ -168,6 +168,29 @@ def read_dns():
     return host_a_records_instance.fetch_records()
 
 
+def delete_never_online_hostnames():
+    with get_db() as db:
+        cursor = db.execute(
+            "SELECT id FROM hostnames WHERE id NOT IN (SELECT hostname_id FROM results WHERE status = 'online')"
+        )
+        hostname_ids_to_delete = [row["id"] for row in cursor.fetchall()]
+
+        if not hostname_ids_to_delete:
+            return
+
+        db.execute(
+            "DELETE FROM results WHERE hostname_id IN ({})".format(",".join("?" * len(hostname_ids_to_delete))),
+            hostname_ids_to_delete
+        )
+        db.commit()
+
+        db.execute(
+            "DELETE FROM hostnames WHERE id IN ({})".format(",".join("?" * len(hostname_ids_to_delete))),
+            hostname_ids_to_delete
+        )
+        db.commit()
+
+
 async def main():
     data = read_dns()
     targets = [i for i in data]
@@ -205,6 +228,14 @@ async def display_never_online_hostnames(request: Request):
     hostnames = query_never_online_hostnames()
     return templates.TemplateResponse(
         "never_online.html", {"request": request, "hostnames": hostnames}
+    )
+
+
+@app.delete("/api/hosts/never_online", tags=["json"])
+async def delete_hosts_never_online():
+    delete_never_online_hostnames()
+    return JSONResponse(
+        content={"message": "Hosts, die nie online waren, wurden gelöscht."}
     )
 
 
